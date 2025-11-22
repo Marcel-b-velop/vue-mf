@@ -1,11 +1,13 @@
 import { defineConfig } from "vite";
 import federation from "@originjs/vite-plugin-federation";
 import vue from "@vitejs/plugin-vue";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    tailwindcss(),
     federation({
       name: "remote-app1",
       filename: "remoteEntry.js",
@@ -19,13 +21,18 @@ export default defineConfig({
       shared: ["vue"],
     }),
   ],
+  build: {
+    target: "esnext",
+    minify: false,
+    cssCodeSplit: false, // WICHTIG damit Tailwind-Klassen in der Host-App funktionieren
+  },
   server: {
     cors: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization",
+      "Access-Control-Allow-Headers":
+        "X-Requested-With, content-type, Authorization",
     },
   },
 });
-

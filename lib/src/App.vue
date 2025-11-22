@@ -8,7 +8,7 @@ const vis = ref(false);
 
 <template>
   <div>
-    <Button @click="() => vis = true">Open Confirm</Button>
+    <Button class="btn rounded-border btn-primary bg-danger p-4" @click="() => vis = true">Open da Confirm</Button>
     <Confirm v-model:visible="vis"/>
   </div>
 </template>

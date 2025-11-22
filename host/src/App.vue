@@ -1,12 +1,25 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>
-    <h1>Host</h1>
-    <AppOne/>
+    <div class="mb-8 flex flex-row justify-around gap-4">
+      <h1 class="text-2xl font-bold">Host</h1>
+    </div>
+    <nav class="flex gap-4 mb-8">
+      <RouterLink class="btn rounded-border btn-primary bg-primary p-4" to="/"
+        >Go to Home</RouterLink
+      >
+      <RouterLink
+        class="btn rounded-border btn-primary bg-primary p-4"
+        to="/about"
+        >Go to About</RouterLink
+      >
+    </nav>
+    <div class="flex justify-around">
+      <AppOne />
+    </div>
+    <RouterView />
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
