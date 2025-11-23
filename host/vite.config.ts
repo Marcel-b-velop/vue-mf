@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import federation from "@originjs/vite-plugin-federation";
+import tailwindcss from "@tailwindcss/vite";
 import vue from "@vitejs/plugin-vue";
-import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -16,7 +16,11 @@ export default defineConfig({
         "remote-app1": "http://localhost:5174/assets/remoteEntry.js",
         "remote-lib": "http://localhost:5177/assets/remoteEntry.js",
       },
-      shared: ["vue"],
+      shared: {
+        vue: { singleton: true, eager: true },
+        pinia: { singleton: true, eager: true },
+        primevue: { requiredVersion: "^4.1.1", version: "^4.1.1", singleton: true },
+      },
     }),
   ],
   server: {

@@ -1,1 +1,1 @@
-<template>Hallo Host Home</template>
+<template><AppOne /></template>

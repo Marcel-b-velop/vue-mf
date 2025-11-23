@@ -1,25 +1,43 @@
 <script setup lang="ts">
-import Dialog from 'primevue/dialog';
-import InputText from 'primevue/inputtext';
-import Button from 'primevue/button';
+import Dialog from "primevue/dialog";
+import Button from "primevue/button";
+import { DataTable, Column } from "primevue";
+import { type ConfirmData, useConfirmStore } from "../stores/confirmStore";
+import { ref } from "vue";
 
-const visible = defineModel<boolean>('visible', { required: true })
+const emit = defineEmits<{ (e: "closed"): void; (e: "saved", payload: ConfirmData[]): void }>();
+
+const onHide = () => emit("closed");
+
+const onSave = () => {
+  emit("saved", selectedCustomers.value);
+  visible.value = false;
+};
+
+const visible = defineModel<boolean>("visible", { required: true });
+const store = useConfirmStore();
+const selectedCustomers = ref<ConfirmData[]>([]);
 </script>
 
 <template>
-<Dialog v-model:visible="visible" modal header="Edit Profile" :style="{ width: '25rem', backgroundColor: 'red' }">
-    <span class="text-surface-500 block mb-8">Update your information.</span>
-    <div class="flex items-center gap-4 mb-4">
-        <label for="username" class="font-semibold w-24">Username</label>
-        <InputText id="username" class="flex-auto" autocomplete="off" />
+  <Dialog @hide="onHide" v-model:visible="visible" modal header="Daten" :style="{ width: '25rem' }">
+    <div>
+      <DataTable :value="store.data" v-model:selection="selectedCustomers" data-key="id">
+        <template #empty> No customers found. </template>
+        <Column selectionMode="multiple" headerStyle="width: 3rem" />
+        <Column field="id" header="Id" />
+        <Column field="name" header="Name" />
+      </DataTable>
+      <div class="flex justify-end gap-3">
+        <Button
+          class="btn rounded-border btn-primary bg-primary p-4"
+          label="Cancel"
+          severity="primary"
+          @click="visible = false"
+        />
+        <Button severity="success" label="Save" @click="onSave" />
+      </div>
     </div>
-    <div class="flex items-center gap-4 mb-8">
-        <label for="email" class="font-semibold w-24">Email</label>
-        <InputText id="email" class="flex-auto" autocomplete="off" />
-    </div>
-    <div class="flex justify-end gap-2">
-        <Button class="btn rounded-border btn-primary bg-primary p-4" type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-        <Button type="button" label="Save" @click="visible = false"></Button>
-    </div>
-</Dialog>
+  </Dialog>
 </template>
+

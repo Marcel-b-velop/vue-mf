@@ -4,10 +4,13 @@ import { createApp, defineAsyncComponent } from "vue";
 
 import App from "./App.vue";
 import PrimeVue from "primevue/config";
+import { createPinia } from "pinia";
 
+const pinia = createPinia();
 const confirmD = defineAsyncComponent(() => import("remote-lib/Confirm"));
 
 const app = createApp(App);
+app.use(pinia);
 app.use(PrimeVue);
 app.component("Confirm", confirmD);
 
