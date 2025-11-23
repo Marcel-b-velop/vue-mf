@@ -10,11 +10,11 @@ const a = ref<{ id: number; name: string; isComplete: boolean }>({
   isComplete: false,
 });
 const vis = ref(false);
-const onSave = async (
-  data: { id: number; name: string; isComplete: boolean }[]
-) => {
+const onSave = async (data: { id: number; name: string; isComplete: boolean }[]) => {
   console.info(data[0]);
-  if (!data || data.length === 0) return;
+  if (!data || data.length <= 0 || !data[0]) {
+    return;
+  }
   const d = await api.fetchTodo(data[0].id);
   a.value = d as { id: number; name: string; isComplete: boolean };
   await api.postTodo({
@@ -35,3 +35,4 @@ const onSave = async (
 </template>
 
 <style scoped></style>
+
