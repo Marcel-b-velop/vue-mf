@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import federation from "@originjs/vite-plugin-federation";
 import tailwindcss from "@tailwindcss/vite";
+import topLevelAwait from "vite-plugin-top-level-await";
 import vue from "@vitejs/plugin-vue";
 
 // https://vite.dev/config/
@@ -11,24 +12,36 @@ export default defineConfig({
     federation({
       name: "remote-lib",
       filename: "remoteEntry.js",
-      // Modules to expose
+      // Modules to exposed
       exposes: {
         "./Confirm": "./src/components/Confirm.vue",
         "./apiClient": "./src/services/apiClient.ts",
         "./types": "./src/types/index.ts",
       },
       shared: {
-        vue: { singleton: true },
-        pinia: { singleton: true },
-        primevue: { singleton: true },
-        axios: { singleton: true }, 
+        vue: { generate: false, import: false },
+        pinia: { generate: false, import: false },
+        primevue: { generate: false, import: false },
+        axios: { generate: false, import: false },
       },
+    }),
+    topLevelAwait({
+      // The export name of top-level await promise for each chunk module
+      promiseExportName: "__tla",
+      // The function to generate import names of top-level await promise in each chunk module
+      promiseImportName: (i) => `__tla_${i}`,
     }),
   ],
   build: {
     target: "esnext",
     minify: false,
     cssCodeSplit: false,
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        minifyInternalExports: false,
+      },
+    },
   },
   server: {
     cors: true,

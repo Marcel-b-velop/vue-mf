@@ -57,6 +57,6 @@ declare module "*.vue" {
 
 ## Stand
 
-Host, App1 und Lib sind schon lauffähig. Es fehlt noch die Navigation, Header / Footer und die Auslagerung der Styles und Funktionen.
+Host, App1 und Lib sind schon lauffähig. Es fehlt noch der Footer und die Auslagerung der Styles und Funktionen.
 
-Bis jetzt wurde nur lokal getestet, wie der Host sich im Livebetrieb verhält ist noch unklar.
+Bis jetzt wurde nur lokal getestet, wie der Host sich im Livebetrieb verhält ist noch unklar. GitHub Action wurde implementiert und die vite configs wurden optimiert. Auch ein apiClient wird in der lib gepflegt und den anderen Anwendungen zur Verfügung gestellt.
