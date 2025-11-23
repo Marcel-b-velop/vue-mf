@@ -13,4 +13,9 @@ export const useConfirmStore = defineStore("confirmStore", {
       { id: 2, name: "Hennes" },
     ],
   }),
+  actions: {
+    setData(data: ConfirmData[]){
+      this.data = data;
+    }
+  }
 });
