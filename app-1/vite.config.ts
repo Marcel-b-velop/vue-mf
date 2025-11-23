@@ -19,17 +19,19 @@ export default defineConfig({
         "remote-lib": "http://localhost:5177/assets/remoteEntry.js",
       },
       shared: {
-        vue: { generate: false, import: true },
-        pinia: { generate: false, import: true },
-        primevue: { generate: false, import: true },
-        axios: { generate: false, import: true },
+        vue: { generate: false, import: false },
+        pinia: { generate: false, import: false },
+        primevue: { generate: false, import: false },
+        axios: { generate: false, import: false },
       },
     }),
   ],
+
   build: {
     target: "esnext",
-    minify: false,
-    cssCodeSplit: false, // WICHTIG damit Tailwind-Klassen in der Host-App funktionieren
+    minify: "esbuild",
+    cssCodeSplit: false,
+    chunkSizeWarningLimit: 500, // Warnung auf 1 MB erhöhen
   },
   server: {
     cors: true,

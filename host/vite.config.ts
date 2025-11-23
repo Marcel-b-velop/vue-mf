@@ -24,6 +24,20 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    target: "esnext",
+    minify: "esbuild",
+    chunkSizeWarningLimit: 1_900,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("primevue")) {
+            return "primevue"; // PrimeVue ist meistens der Größte
+          }
+        },
+      },
+    },
+  },
   server: {
     cors: true,
     headers: {
