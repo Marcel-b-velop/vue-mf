@@ -1,23 +1,27 @@
-import { inject } from 'vue';
-import type { ApiClient } from 'remote-lib/types';
+import { apiClient } from "remote-lib/apiClient";
 
 export function useApi() {
-  const apiClient = inject<ApiClient | null>('apiClient', null);
-
   if (!apiClient) {
-    throw new Error('apiClient not provided!');
+    throw new Error("apiClient not provided!");
   }
 
   const fetchTodos = () => {
-    return apiClient.get('/');
-  }
+    return apiClient.get("/");
+  };
 
   const fetchTodo = (id: number) => {
     return apiClient.get(`/${id}`);
-  }
+  };
+
+  const postTodo = (data: any) => {
+    return apiClient.post("/", data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  };
 
   return {
     fetchTodos,
-    fetchTodo
+    fetchTodo,
+    postTodo,
   };
 }
