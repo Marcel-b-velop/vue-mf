@@ -1,7 +1,7 @@
 import "./style.css";
 
 import { createApp, defineAsyncComponent } from "vue";
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createWebHistory, createRouter } from "vue-router";
 
 import App from "./App.vue";
 import Aura from "@primeuix/themes/aura";
@@ -19,7 +19,7 @@ app.component("AppOne", remoteApp1);
 app.component("Confirm", confirmD);
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 

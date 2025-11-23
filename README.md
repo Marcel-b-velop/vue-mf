@@ -19,6 +19,8 @@ Ein Steuerelement soll ein Auswahldialog sein. Man soll den Dialog mit Selektion
 
 ## Gelöste Probleme:
 
+- Entwickeln der Anwendung. Es reicht nicht, wenn die drei Teile der anwendung mit `pnpm dev` gestartet werden. Den Host kann man so starten, Lib und App1 müssen gebaut werden und danach über preview bereitgestellt werden, um alles im Host zu sehen. Einzelne Anwendungen kann man natürlich auch direkt starten und debuggen, sie funktionieren dann allerdings nicht in der Hostanwendung.
+
 - Primevue, Pinia, Vue sollten von allen Anwendungen geteilt werden. In der vite.config.ts wird das konfiguriert, Primivue hat dort Probleme gemacht. Für Primevue musste nur in der Host Anwendung die vite.confit.ts erweitert werden: `primevue: { requiredVersion: "^4.1.1", version: "^4.1.1", singleton: true }` . Die Lösung war version und requiredVersion.
 
 - Tailwind Klassen der Lib und App1 wurden in der Hostanwendung nicht aufgelöst. Folgender Code hat in der vite.config.ts der Lib und App1 zur Lösung geführt (in der Host Anwendung gab es die Anpassung nicht):
@@ -30,3 +32,31 @@ build: {
     cssCodeSplit: false,
   },
 ```
+
+- In den Anwendungen wird der Fehler angezeigt, dass die Komponenten nicht gefunden werden. Hier ist zu beachten, dass in der `vite-env.d.ts` die Module bekannt gemacht werden müssen. Ein Beispiel:
+
+```typescript
+declare module "remote-app1/App1" {
+  import { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
+declare module "remote-lib/Confirm" {
+  import { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
+declare module "*.vue" {
+  import type { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+```
+
+## Stand
+
+Host, App1 und Lib sind schon lauffähig. Es fehlt noch die Navigation, Header / Footer und die Auslagerung der Styles und Funktionen.
+
+Bis jetzt wurde nur lokal getestet, wie der Host sich im Livebetrieb verhält ist noch unklar.

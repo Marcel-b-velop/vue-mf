@@ -23,6 +23,7 @@ export default defineConfig({
         pinia: { singleton: true },
         primevue: { singleton: true },
         "primevue/config": { singleton: true },
+        axios: { singleton: true }, 
       },
     }),
   ],

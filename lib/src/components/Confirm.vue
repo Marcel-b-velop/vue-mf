@@ -3,7 +3,8 @@ import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import { DataTable, Column } from "primevue";
 import { type ConfirmData, useConfirmStore } from "../stores/confirmStore";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { apiClient } from "../services/apiClient";
 
 const emit = defineEmits<{ (e: "closed"): void; (e: "saved", payload: ConfirmData[]): void }>();
 
@@ -17,6 +18,10 @@ const onSave = () => {
 const visible = defineModel<boolean>("visible", { required: true });
 const store = useConfirmStore();
 const selectedCustomers = ref<ConfirmData[]>([]);
+onMounted(async () => {
+  const data = await apiClient.get<ConfirmData[]>("/");
+    store.setData(data);
+  });
 </script>
 
 <template>

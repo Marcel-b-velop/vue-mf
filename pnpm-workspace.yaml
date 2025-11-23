@@ -1,0 +1,4 @@
+packages:
+  - 'lib'
+  - 'app-1'
+  - 'host'

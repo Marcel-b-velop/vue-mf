@@ -14,11 +14,14 @@ export default defineConfig({
       // Modules to expose
       exposes: {
         "./Confirm": "./src/components/Confirm.vue",
+        "./apiClient": "./src/services/apiClient.ts",
+        "./types": "./src/types/index.ts",
       },
       shared: {
         vue: { singleton: true },
         pinia: { singleton: true },
         primevue: { singleton: true },
+        axios: { singleton: true }, 
       },
     }),
   ],
