@@ -14,6 +14,8 @@ const app = createApp(App);
 app.use(pinia);
 app.use(PrimeVue);
 app.component("Confirm", confirmD);
+console.log('apiClient:', apiClient); // ← Was ist das??
+console.log('apiClient.get:', apiClient?.get); 
 // apiClient kann jetzt überall in app-1 genutzt werden
 app.provide('apiClient', apiClient);
 app.mount("#app");
