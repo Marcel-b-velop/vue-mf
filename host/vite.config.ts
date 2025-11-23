@@ -20,6 +20,7 @@ export default defineConfig({
         vue: { singleton: true, eager: true },
         pinia: { singleton: true, eager: true },
         primevue: { requiredVersion: "^4.1.1", version: "^4.1.1", singleton: true },
+        axios: { singleton: true }, 
       },
     }),
   ],

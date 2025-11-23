@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "dev:watch": "vite build --watch --mode development",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview --port 5177"
+    "preview": "vite preview --port 5177",
+    "dev:all": "concurrently \"pnpm run dev:watch\" \"pnpm run preview\"",
+    "build": "vue-tsc -b && vite build"
   },
   "dependencies": {
     "@originjs/vite-plugin-federation": "^1.4.1",
@@ -24,6 +25,7 @@
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
+    "concurrently": "^9.2.1",
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
     "vue-tsc": "^3.1.4"

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { ApiClient } from '../types';
 
 const client = axios.create({
   baseURL: 'http://localhost:5282/todos',
@@ -14,7 +15,7 @@ client.interceptors.response.use(
   }
 );
 
-export const apiClient = {
+export const apiClient: ApiClient = {
   get: <T,>(url: string) => client.get<T>(url).then(r => r.data),
   post: <T,>(url: string, data: any) => client.post<T>(url, data).then(r => r.data),
   put: <T,>(url: string, data: any) => client.put<T>(url, data).then(r => r.data),
