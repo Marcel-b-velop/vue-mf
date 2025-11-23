@@ -27,11 +27,13 @@ jobs:
         with:
           dotnet-version: '10.x'  # Passen Sie die Version an
       - name: Restore .NET dependencies
-        run: dotnet restore
+        run: dotnet restore Api/Api.sln
       - name: Build .NET
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build Api/Api.sln --configuration Release --no-restore
       - name: Test .NET
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test Api/Api.sln --no-build --verbosity normal
+
+
 
 
 
