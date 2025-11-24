@@ -34,7 +34,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 500, // Warnung auf 1 MB erhöhen
        experimental: {
         renderBuiltUrl(filename: string) {
-          const url = env.VITE_APP_URL;
+          const url = "http:/localhost", // env.VITE_APP_URL;
           return `${url}/${filename}`;
         },
       },
