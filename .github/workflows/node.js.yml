@@ -1,6 +1,7 @@
-name: Build UI
+name: Build & Test
 on:
   push:
+  pull_request:
 
 jobs:
   build:
@@ -21,17 +22,45 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build
-    # .NET Setup und Build
+
+      # Vitest Tests
+      - name: Run Vitest Tests
+        run: pnpm --filter lib test:run -- --reporter=verbose --reporter=junit --outputFile=./test-results/junit.xml
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: lib/test-results/junit.xml
+
+      - name: Publish Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Vitest Results
+          path: lib/test-results/junit.xml
+          reporter: java-junit
+
+      # .NET Setup und Build
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.x'  # Passen Sie die Version an
+          dotnet-version: '10.x'
       - name: Restore .NET dependencies
         run: dotnet restore Api/Api.sln
       - name: Build .NET
         run: dotnet build Api/Api.sln --configuration Release --no-restore
       - name: Test .NET
-        run: dotnet test Api/Api.sln --no-build --verbosity normal
+        run: dotnet test Api/Api.sln --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+
+      - name: Publish .NET Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: .NET Test Results
+          path: Api/**/TestResults/*.trx
+          reporter: dotnet-trx
 
 
 
