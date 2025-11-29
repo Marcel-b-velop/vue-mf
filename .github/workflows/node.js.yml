@@ -21,3 +21,19 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build
+    # .NET Setup und Build
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'  # Passen Sie die Version an
+      - name: Restore .NET dependencies
+        run: dotnet restore Api/Api.sln
+      - name: Build .NET
+        run: dotnet build Api/Api.sln --configuration Release --no-restore
+      - name: Test .NET
+        run: dotnet test Api/Api.sln --no-build --verbosity normal
+
+
+
+
+

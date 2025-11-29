@@ -8,26 +8,40 @@
     "dev:watch": "vite build --watch --mode development",
     "preview": "vite preview --port 5177",
     "dev:all": "concurrently \"pnpm run dev:watch\" \"pnpm run preview\"",
-    "build": "vue-tsc -b && vite build"
+    "build": "vue-tsc -b && vite build",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "@originjs/vite-plugin-federation": "^1.4.1",
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.13.2",
+    "date-fns": "^4.1.0",
     "pinia": "^2.3.1",
     "primevue": "^4.4.1",
     "tailwindcss": "^4.1.17",
     "tailwindcss-primeui": "^0.6.1",
+    "vite-plugin-top-level-await": "^1.6.0",
     "vue": "^3.5.24",
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.1",
+    "@vitest/ui": "^4.0.14",
+    "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.1",
     "concurrently": "^9.2.1",
+    "happy-dom": "^20.0.11",
+    "playwright": "^1.57.0",
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
+    "vitest": "^4.0.14",
     "vue-tsc": "^3.1.4"
   },
   "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b"

@@ -1,0 +1,35 @@
+{
+  "name": "app-2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "dev:watch": "vite build --watch --mode development",
+    "preview": "vite preview --port 5175",
+    "dev:all": "concurrently \"pnpm run dev:watch\" \"pnpm run preview\""
+  },
+  "dependencies": {
+    "@originjs/vite-plugin-federation": "^1.4.1",
+    "@tailwindcss/vite": "^4.1.17",
+    "axios": "^1.13.2",
+    "pinia": "^2.3.1",
+    "primevue": "^4.4.1",
+    "tailwindcss": "^4.1.17",
+    "tailwindcss-primeui": "^0.6.1",
+    "vue": "^3.5.24",
+    "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/tsconfig": "^0.8.1",
+    "concurrently": "^9.2.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.2.4",
+    "vue-tsc": "^3.1.4"
+  },
+  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b"
+}
+

@@ -14,16 +14,31 @@ export default defineConfig({
       // Modules to expose
       remotes: {
         "remote-app1": "http://localhost:5174/assets/remoteEntry.js",
+        "remote-app2": "http://localhost:5175/assets/remoteEntry.js",
         "remote-lib": "http://localhost:5177/assets/remoteEntry.js",
       },
       shared: {
-        vue: { singleton: true, eager: true },
-        pinia: { singleton: true, eager: true },
-        primevue: { requiredVersion: "^4.1.1", version: "^4.1.1", singleton: true },
-        axios: { singleton: true }, 
+        vue: { modulePreload: true },
+        pinia: { modulePreload: true },
+        primevue: { requiredVersion: "^4.1.1", version: "^4.1.1", modulePreload: true },
+        axios: { modulePreload: true },
       },
     }),
   ],
+  build: {
+    target: "esnext",
+    minify: "esbuild",
+    chunkSizeWarningLimit: 1_900,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("primevue")) {
+            return "primevue"; // PrimeVue ist meistens der Größte
+          }
+        },
+      },
+    },
+  },
   server: {
     cors: true,
     headers: {
