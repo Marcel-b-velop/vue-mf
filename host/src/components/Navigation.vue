@@ -1,14 +1,6 @@
 <script setup lang="ts">
 import Menubar from "primevue/menubar";
-const authStore = useAuthStore();
-
-// Nach Login: Token setzen
-const login = async (credentials: string) => {
-  authStore.setToken(credentials);
-  // Jetzt wird Token automatisch bei jedem Request mitgesendet!
-};
 import { ref } from "vue";
-import { useAuthStore } from "../stores/authStore";
 
 const items = ref([
   {

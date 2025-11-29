@@ -5,10 +5,38 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "C#:IdentityServer Debug",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Api/IdentityServer/bin/Debug/net10.0/IdentityServer.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Api/IdentityServer",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5283"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "C#:Api Debug",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Api/Api/bin/Debug/net10.0/Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Api/Api",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5282"
+            },
+            "console": "integratedTerminal"
+        },
+        {
             "type": "chrome",
             "request": "launch",
             "name": "Chrome mit \"localhost\" starten",
-            "url": "http://localhost:8080",
+            "url": "http://localhost:5283",
             "webRoot": "${workspaceFolder}"
         }
     ]

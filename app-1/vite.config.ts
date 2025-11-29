@@ -31,13 +31,7 @@ export default defineConfig({
     target: "esnext",
     minify: "esbuild",
     cssCodeSplit: false,
-    chunkSizeWarningLimit: 500, // Warnung auf 1 MB erhöhen
-       experimental: {
-        renderBuiltUrl(filename: string) {
-          const url = "http:/localhost", // env.VITE_APP_URL;
-          return `${url}/${filename}`;
-        },
-      },
+    chunkSizeWarningLimit: 500,
   },
   server: {
     cors: true,
