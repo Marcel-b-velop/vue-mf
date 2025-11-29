@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import federation from "@originjs/vite-plugin-federation";
 import tailwindcss from "@tailwindcss/vite";
 import topLevelAwait from "vite-plugin-top-level-await";
@@ -6,6 +6,10 @@ import vue from "@vitejs/plugin-vue";
 
 // https://vite.dev/config/
 export default defineConfig({
+  test: {
+    globals: true,
+    environment: "happy-dom",
+  },
   plugins: [
     vue(),
     tailwindcss(),

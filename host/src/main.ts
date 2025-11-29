@@ -10,12 +10,14 @@ import { createPinia } from "pinia";
 import { routes } from "./router";
 
 const remoteApp1 = defineAsyncComponent(() => import("remote-app1/App1"));
+const remoteApp2 = defineAsyncComponent(() => import("remote-app2/App2"));
 const confirmD = defineAsyncComponent(() => import("remote-lib/Confirm"));
 
 const pinia = createPinia();
 const app = createApp(App);
 
 app.component("AppOne", remoteApp1);
+app.component("AppTwo", remoteApp2);
 app.component("Confirm", confirmD);
 
 const router = createRouter({

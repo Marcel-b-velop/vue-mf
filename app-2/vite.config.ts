@@ -9,37 +9,35 @@ export default defineConfig({
     vue(),
     tailwindcss(),
     federation({
-      name: "host-app",
+      name: "remote-app2",
       filename: "remoteEntry.js",
       // Modules to expose
+      exposes: {
+        "./App2": "./src/App.vue", // Für standalone-Modus
+        "./Home": "./src/views/Home.vue",
+        "./LoginForm": "./src/components/LoginForm.vue",
+        "./RegisterForm": "./src/components/RegisterForm.vue",
+      },
       remotes: {
-        "remote-app1": "http://localhost:5174/assets/remoteEntry.js",
-        "remote-app2": "http://localhost:5175/assets/remoteEntry.js",
         "remote-lib": "http://localhost:5177/assets/remoteEntry.js",
       },
       shared: {
-        vue: { modulePreload: true },
-        pinia: { modulePreload: true },
-        primevue: { requiredVersion: "^4.1.1", version: "^4.1.1", modulePreload: true },
-        axios: { modulePreload: true },
+        vue: { generate: false, import: false },
+        pinia: { generate: false, import: false },
+        primevue: { generate: false, import: false },
+        axios: { generate: true, import: true },
       },
     }),
   ],
+
   build: {
     target: "esnext",
     minify: "esbuild",
-    chunkSizeWarningLimit: 1_900,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes("primevue")) {
-            return "primevue"; // PrimeVue ist meistens der Größte
-          }
-        },
-      },
-    },
+    cssCodeSplit: false,
+    chunkSizeWarningLimit: 500,
   },
   server: {
+    port: 5175,
     cors: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
