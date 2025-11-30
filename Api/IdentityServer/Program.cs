@@ -234,3 +234,6 @@ identityApi.MapGet("/health", () => Results.Ok(new { status = "healthy", service
     .WithTags("Identity");
 
 app.Run();
+
+// Für WebApplicationFactory in Tests
+public partial class Program { }
