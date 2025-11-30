@@ -27,7 +27,9 @@ jobs:
       - name: Run Vitest Tests
         run: |
           mkdir -p lib/test-results
-          cd lib && pnpm test:run -- --reporter=verbose --reporter=junit --outputFile=test-results/junit.xml
+          cd lib && pnpm test:run
+        env:
+          CI: true
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4

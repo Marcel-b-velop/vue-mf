@@ -10,6 +10,10 @@ export default defineConfig({
     globals: true,
     environment: "happy-dom",
     exclude: ["**/node_modules/**", "**/e2e/**"],
+    reporters: process.env.CI ? ["verbose", "junit"] : ["verbose"],
+    outputFile: {
+      junit: "test-results/junit.xml",
+    },
   },
   plugins: [
     vue(),
