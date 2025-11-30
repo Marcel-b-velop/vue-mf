@@ -62,7 +62,7 @@ jobs:
       - name: Build .NET
         run: dotnet build Api/Api.sln --configuration Release --no-restore
       - name: Test .NET
-        run: dotnet test Api/Api.sln --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test Api/Api.sln --configuration Release --no-build --verbosity normal --logger "trx" --results-directory Api/TestResults
         continue-on-error: true
 
       - name: Publish .NET Test Results
@@ -70,7 +70,7 @@ jobs:
         if: always()
         with:
           name: .NET Test Results
-          path: Api/**/TestResults/*.trx
+          path: Api/TestResults/*.trx
           reporter: dotnet-trx
           fail-on-empty: false
 
