@@ -3,7 +3,7 @@ import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import { DataTable, Column } from "primevue";
 import { type ConfirmData, useConfirmStore } from "../stores/confirmStore";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { apiClient } from "../services/apiClient";
 
 const emit = defineEmits<{ (e: "closed"): void; (e: "saved", payload: ConfirmData[]): void }>();
@@ -12,16 +12,32 @@ const onHide = () => emit("closed");
 
 const onSave = () => {
   emit("saved", selectedCustomers.value);
+  selection.value = selectedCustomers.value.map((item) => String(item.id));
   visible.value = false;
 };
 
 const visible = defineModel<boolean>("visible", { required: true });
+const selection = defineModel<string[]>({ default: () => [] });
 const store = useConfirmStore();
 const selectedCustomers = ref<ConfirmData[]>([]);
+
+const applyPreselection = () => {
+  if (selection.value.length > 0 && store.data.length > 0) {
+    selectedCustomers.value = store.data.filter((item) =>
+      selection.value.includes(String(item.id))
+    );
+  }
+};
+
 onMounted(async () => {
   const data = await apiClient.get<ConfirmData[]>("/");
-    store.setData(data);
-  });
+  store.setData(data);
+  applyPreselection();
+});
+
+watch(selection, () => {
+  applyPreselection();
+});
 </script>
 
 <template>
