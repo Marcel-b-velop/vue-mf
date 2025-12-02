@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import Menubar from "primevue/menubar";
-import { ref } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { useAuthStore } from "../stores/authStore";
+
+const authStore = useAuthStore();
 
 const items = ref([
   {
@@ -13,12 +16,39 @@ const items = ref([
     icon: "pi pi-star",
     route: "/about",
   },
-  {
-    label: "Login",
-    icon: "pi pi-user",
-    route: '/login',
-  },
 ]);
+
+const displayName = computed(() => {
+  if (authStore.user?.userName) {
+    return authStore.user.userName;
+  }
+  if (authStore.user?.email) {
+    return authStore.user.email;
+  }
+  return "Login";
+});
+
+onMounted(async () => {
+  await authStore.initialize();
+  
+  // Auf Auth-Änderungen reagieren
+  window.addEventListener("auth:logout", () => {
+    authStore.clearToken();
+  });
+  
+  // Auf Storage-Änderungen reagieren (z.B. wenn Token in app-2 gesetzt wird)
+  const handleStorageChange = async (e: StorageEvent) => {
+    if (e.key === "accessToken") {
+      if (e.newValue) {
+        await authStore.fetchUser();
+      } else {
+        authStore.clearToken();
+      }
+    }
+  };
+  
+  window.addEventListener("storage", handleStorageChange);
+});
 </script>
 
 <template>
@@ -36,6 +66,18 @@ const items = ref([
           <span>{{ item.label }}</span>
           <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down" />
         </a>
+      </template>
+      <template #end>
+        <router-link v-if="!authStore.isAuthenticated" to="/login" custom v-slot="{ href, navigate }">
+          <a v-ripple :href="href" @click="navigate" class="p-menubar-root-list-item-link">
+            <span class="pi pi-user" />
+            <span>Login</span>
+          </a>
+        </router-link>
+        <div v-else class="p-menubar-root-list-item-link">
+          <span class="pi pi-user" />
+          <span>{{ displayName }}</span>
+        </div>
       </template>
     </Menubar>
   </div>
