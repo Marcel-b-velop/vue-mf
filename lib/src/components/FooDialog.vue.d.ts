@@ -22,3 +22,4 @@ declare const FooDialog: DefineComponent<FooDialogProps, object, object, object,
 
 export default FooDialog;
 
+
