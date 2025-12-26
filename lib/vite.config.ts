@@ -24,6 +24,7 @@ export default defineConfig({
       // Modules to exposed
       exposes: {
         "./Confirm": "./src/components/Confirm.vue",
+        "./BaseInput": "./src/components/BaseInput.vue",
         "./apiClient": "./src/services/apiClient.ts",
         "./types": "./src/types/index.ts",
       },
