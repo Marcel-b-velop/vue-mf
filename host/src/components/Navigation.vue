@@ -19,7 +19,7 @@ const items = ref([
   {
     label: 'Wichteln',
     icon: 'pi pi-star',
-    route: '/wichteln?grp=hihi',
+    route: '/wichteln',
   },
 ])
 

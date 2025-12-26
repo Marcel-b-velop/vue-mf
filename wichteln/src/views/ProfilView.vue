@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { defineAsyncComponent, onMounted, reactive } from 'vue'
+import { defineAsyncComponent, onMounted, reactive, ref } from 'vue'
 import { string, object } from 'yup'
 
 interface WichtelEvent {
@@ -16,29 +16,27 @@ interface WichtelParam {
   time: string
 }
 
-interface Gruppe {
-  grp?: string
+interface Profil {
+  id?: string
 }
 
-const props = defineProps<Gruppe>()
+const gruppenName = ref('')
+const props = defineProps<Profil>()
 const { handleSubmit, defineField, errors } = useForm<WichtelEvent>({
   validationSchema: object({
     name: string().required('Name ist erforderlich'),
-    gruppe: string().required('Gruppe ist erforderlich'),
     password: string().required('Passwort ist erforderlich'),
   }),
   initialValues: {},
 })
 
 onMounted(() => {
-  if(props.grp){
-    const e = JSON.parse(atob(props.grp)) as WichtelParam
-    console.info(e)
+  if (props.id) {
+    console.info(props.id)
   }
 })
 
 const [name] = defineField('name')
-const [gruppe] = defineField('gruppe')
 const [password] = defineField('password')
 
 const BaseInput = defineAsyncComponent(() => import('remote-lib/BaseInput'))
@@ -67,8 +65,10 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <template>
-  <h1 class="flex justify-center text-4xl mb-4">Anmeldung</h1>
+  <h1 class="flex justify-center text-5xl mb-4">^{{ gruppenName }}^</h1>
+  <h2 class="flex justify-center text-4xl mb-4">Anmeldung</h2>
   <div class="flex justify-center">
+    {{ id }}
     <form @submit="onSubmit">
       <BaseInput
         v-model="name"
@@ -84,16 +84,8 @@ const onSubmit = handleSubmit((values) => {
         type="password"
         class="mb-5"
       />
-      <hr />
-      <BaseInput
-        v-model="gruppe"
-        :error-message="errors.gruppe"
-        label="Gruppe"
-        type="text"
-        class="mb-5 mt-2"
-      />
       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Gruppe erstellen
+        Teilnehmen
       </button>
     </form>
   </div>

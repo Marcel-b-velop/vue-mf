@@ -28,6 +28,7 @@ declare module 'remote-lib/BaseInput' {
   interface BaseInputProps {
     label?: string
     modelValue?: string | number
+    errorMessage?: string
   }
 
   interface BaseInputEmits {

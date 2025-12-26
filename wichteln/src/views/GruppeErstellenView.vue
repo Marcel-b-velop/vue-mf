@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { defineAsyncComponent, onMounted, reactive } from 'vue'
+import { defineAsyncComponent, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { string, object } from 'yup'
+
+const router = useRouter();
 
 interface WichtelEvent {
   name: string
@@ -43,12 +46,6 @@ const [password] = defineField('password')
 
 const BaseInput = defineAsyncComponent(() => import('remote-lib/BaseInput'))
 
-const wichtelEvent: WichtelEvent = reactive({
-  name: '',
-  gruppe: '',
-  password: '',
-})
-
 const onSubmit = handleSubmit((values) => {
   const others = btoa(
     JSON.stringify({
@@ -62,7 +59,7 @@ const onSubmit = handleSubmit((values) => {
   // asBase64 in der DB speicher, als Gruppe
   const url = new URL(window.location.href)
   url.searchParams.set('grp', others)
-  window.location.href = url.toString()
+  router.push({ name: 'Wichteln - Dein Profil', query: { grp: asBase64 } }).catch(console.error)
 })
 </script>
 

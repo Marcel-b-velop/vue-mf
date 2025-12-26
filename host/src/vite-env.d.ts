@@ -28,7 +28,18 @@ declare module "remote-lib/Confirm" {
   export default component;
 }
 
-declare module "remote-wichteln/Wichteln" {
+declare module "remote-wichteln/WichtelnGruppeErstellen" {
+  import { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
+declare module "remote-wichteln/WichtelnProfilErstellen" {
+  import { DefineComponent } from "vue";
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+declare module "remote-wichteln/WichtelnProfil" {
   import { DefineComponent } from "vue";
   const component: DefineComponent<{}, {}, any>;
   export default component;

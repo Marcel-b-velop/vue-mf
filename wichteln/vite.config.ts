@@ -13,16 +13,21 @@ export default defineConfig({
       filename: "remoteEntry.js",
       // Modules to expose
       exposes: {
-        "./Wichteln": "./src/App.vue",
+        "./WichtelnGruppeErstellen": "./src/views/GruppeErstellenView.vue",
+        "./WichtelnProfilErstellen": "./src/views/GruppeBeitretenView.vue",
+        "./WichtelnProfil": "./src/views/ProfilView.vue",
       },
       remotes: {
         "remote-lib": "http://localhost:5177/assets/remoteEntry.js",
       },
       shared: {
         vue: { generate: false, import: false },
+        "vue-router": { generate: false, import: false },
         pinia: { generate: false, import: false },
         primevue: { generate: false, import: false },
-        axios: { generate: true, import: true },
+        axios: { generate: false, import: false },
+        "vee-validate": { generate: false, import: false },
+        yup: { generate: false, import: false },
       },
     }),
   ],

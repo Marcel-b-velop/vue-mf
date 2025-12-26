@@ -7,7 +7,9 @@ export const routes = [
   { path: '/about', name: "about", component: About },
   { path: '/login', component: () => import('remote-app2/LoginForm') },
   { path: '/register', component: () => import('remote-app2/RegisterForm') },
-  { path: '/wichteln', name: "wichteln", component: () => import('remote-wichteln/Wichteln'), props: (route: RouteLocationNormalized) => ({ grp: route.query.grp }) }
+  { path: '/wichteln', name: "Wichteln", component: () => import('remote-wichteln/WichtelnGruppeErstellen'), props: (route: RouteLocationNormalized) => ({ grp: route.query.grp }) },
+  { path: '/wichteln/profil', name: "Wichteln - Dein Profil", component: () => import('remote-wichteln/WichtelnProfilErstellen'), props: (route: RouteLocationNormalized) => ({ grp: route.query.grp }) },
+  { path: '/wichteln/profil/:id', name: "Wichteln - Gruppe", component: () => import('remote-wichteln/WichtelnProfil'), props: true }
 ];
 
 
