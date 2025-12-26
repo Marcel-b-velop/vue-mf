@@ -24,7 +24,17 @@ declare module 'remote-app2/RegisterForm' {
 
 declare module 'remote-lib/BaseInput' {
   import { DefineComponent } from 'vue'
-  const component: DefineComponent<{}, {}, any>
+
+  interface BaseInputProps {
+    label?: string
+    modelValue?: string | number
+  }
+
+  interface BaseInputEmits {
+    (event: 'update:modelValue', value: string | number | null): void
+  }
+
+  const component: DefineComponent<BaseInputProps, {}, {}, {}, {}, {}, {}, BaseInputEmits>
   export default component
 }
 

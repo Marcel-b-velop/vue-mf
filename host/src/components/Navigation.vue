@@ -1,59 +1,59 @@
 <script setup lang="ts">
-import Menubar from "primevue/menubar";
-import { ref, computed, onMounted } from "vue";
-import { useAuthStore } from "../stores/authStore";
+import Menubar from 'primevue/menubar'
+import { ref, computed, onMounted } from 'vue'
+import { useAuthStore } from '../stores/authStore'
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
 const items = ref([
   {
-    label: "Home",
-    icon: "pi pi-home",
-    route: "/",
+    label: 'Home',
+    icon: 'pi pi-home',
+    route: '/',
   },
   {
-    label: "About",
-    icon: "pi pi-star",
-    route: "/about",
+    label: 'About',
+    icon: 'pi pi-star',
+    route: '/about',
   },
   {
-    label: "Wichteln",
-    icon: "pi pi-star",
-    route: "/wichteln",
+    label: 'Wichteln',
+    icon: 'pi pi-star',
+    route: '/wichteln?grp=hihi',
   },
-]);
+])
 
 const displayName = computed(() => {
   if (authStore.user?.userName) {
-    return authStore.user.userName;
+    return authStore.user.userName
   }
   if (authStore.user?.email) {
-    return authStore.user.email;
+    return authStore.user.email
   }
-  return "Login";
-});
+  return 'Login'
+})
 
 onMounted(async () => {
-  await authStore.initialize();
+  await authStore.initialize()
 
   // Auf Auth-Änderungen reagieren
-  window.addEventListener("auth:logout", () => {
-    authStore.clearToken();
-  });
+  window.addEventListener('auth:logout', () => {
+    authStore.clearToken()
+  })
 
   // Auf Storage-Änderungen reagieren (z.B. wenn Token in app-2 gesetzt wird)
   const handleStorageChange = async (e: StorageEvent) => {
-    if (e.key === "accessToken") {
+    if (e.key === 'accessToken') {
       if (e.newValue) {
-        await authStore.fetchUser();
+        await authStore.fetchUser()
       } else {
-        authStore.clearToken();
+        authStore.clearToken()
       }
     }
-  };
+  }
 
-  window.addEventListener("storage", handleStorageChange);
-});
+  window.addEventListener('storage', handleStorageChange)
+})
 </script>
 
 <template>
@@ -73,7 +73,12 @@ onMounted(async () => {
         </a>
       </template>
       <template #end>
-        <router-link v-if="!authStore.isAuthenticated" to="/login" custom v-slot="{ href, navigate }">
+        <router-link
+          v-if="!authStore.isAuthenticated"
+          to="/login"
+          custom
+          v-slot="{ href, navigate }"
+        >
           <a v-ripple :href="href" @click="navigate" class="p-menubar-root-list-item-link">
             <span class="pi pi-user" />
             <span>Login</span>
