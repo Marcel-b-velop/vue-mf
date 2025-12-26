@@ -16,6 +16,11 @@ const items = ref([
     icon: "pi pi-star",
     route: "/about",
   },
+  {
+    label: "Wichteln",
+    icon: "pi pi-star",
+    route: "/wichteln",
+  },
 ]);
 
 const displayName = computed(() => {
@@ -30,12 +35,12 @@ const displayName = computed(() => {
 
 onMounted(async () => {
   await authStore.initialize();
-  
+
   // Auf Auth-Änderungen reagieren
   window.addEventListener("auth:logout", () => {
     authStore.clearToken();
   });
-  
+
   // Auf Storage-Änderungen reagieren (z.B. wenn Token in app-2 gesetzt wird)
   const handleStorageChange = async (e: StorageEvent) => {
     if (e.key === "accessToken") {
@@ -46,7 +51,7 @@ onMounted(async () => {
       }
     }
   };
-  
+
   window.addEventListener("storage", handleStorageChange);
 });
 </script>
@@ -82,4 +87,3 @@ onMounted(async () => {
     </Menubar>
   </div>
 </template>
-

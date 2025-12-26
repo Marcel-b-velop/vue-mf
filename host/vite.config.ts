@@ -16,6 +16,7 @@ export default defineConfig({
         "remote-app1": "http://localhost:5174/assets/remoteEntry.js",
         "remote-app2": "http://localhost:5175/assets/remoteEntry.js",
         "remote-lib": "http://localhost:5177/assets/remoteEntry.js",
+        "remote-wichteln": "http://localhost:5176/assets/remoteEntry.js",
       },
       shared: {
         vue: { modulePreload: true },
@@ -40,6 +41,7 @@ export default defineConfig({
     },
   },
   server: {
+    port: 5173,
     cors: true,
     headers: {
       "Access-Control-Allow-Origin": "*",

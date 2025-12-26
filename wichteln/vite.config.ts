@@ -9,11 +9,11 @@ export default defineConfig({
     vue(),
     tailwindcss(),
     federation({
-      name: "remote-app1",
+      name: "remote-wichteln",
       filename: "remoteEntry.js",
       // Modules to expose
       exposes: {
-        "./App1": "./src/App.vue",
+        "./Wichteln": "./src/App.vue",
       },
       remotes: {
         "remote-lib": "http://localhost:5177/assets/remoteEntry.js",
@@ -22,7 +22,7 @@ export default defineConfig({
         vue: { generate: false, import: false },
         pinia: { generate: false, import: false },
         primevue: { generate: false, import: false },
-        axios: { generate: false, import: false },
+        axios: { generate: true, import: true },
       },
     }),
   ],
@@ -34,7 +34,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 500,
   },
   server: {
-    port: 5174,
+    port: 5176,
     cors: true,
     headers: {
       "Access-Control-Allow-Origin": "*",

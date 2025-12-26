@@ -1,6 +1,7 @@
 import axios from "axios";
 import type { ApiClient } from "../types";
 
+
 const client = axios.create({
   baseURL: "http://localhost:5282/todos",
   timeout: 10_000,

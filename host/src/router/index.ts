@@ -5,7 +5,8 @@ export const routes = [
   { path: '/', component: Home },
   { path: '/about', component: About },
   { path: '/login', component: () => import('remote-app2/LoginForm') },
-  { path: '/register', component: () => import('remote-app2/RegisterForm') }
+  { path: '/register', component: () => import('remote-app2/RegisterForm') },
+  { path: '/wichteln', component: () => import('remote-wichteln/Wichteln') }
 ];
 
 

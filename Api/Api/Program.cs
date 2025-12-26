@@ -1,6 +1,18 @@
+using System.Security.Authentication;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateSlimBuilder(args);
+
+// Configure Kestrel for HTTPS with development certificate
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ConfigureHttpsDefaults(httpsOptions =>
+    {
+        // Allow TLS 1.2 and 1.3 for better browser compatibility
+        httpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
+        // Use default certificate selection (development certificate)
+    });
+});
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
