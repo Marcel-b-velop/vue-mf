@@ -24,7 +24,7 @@ export default defineConfig({
         primevue: { requiredVersion: '^4.1.1', version: '^4.1.1', modulePreload: true },
         axios: { modulePreload: true },
         'vee-validate': { modulePreload: true, version: '^4.5.1', requiredVersion: '^4.5.1' },
-        "vue-router": { modulePreload: true },
+        'vue-router': { modulePreload: true },
         yup: { modulePreload: true },
       },
     }),
@@ -37,7 +37,7 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('primevue')) {
-            return 'primevue' // PrimeVue ist meistens der Größte
+            return 'primevue'
           }
         },
       },

@@ -39,6 +39,10 @@ public class JwtTokenService
             claims.Add(new Claim(ClaimTypes.Role, role));
         }
 
+        // Add application claim to identify which app this user belongs to
+        var application = jwtSettings["Application"] ?? "wichteln";
+        claims.Add(new Claim("application", application));
+
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
